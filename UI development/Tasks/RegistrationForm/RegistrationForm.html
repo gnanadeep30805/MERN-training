@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+
+<body style="background-color: rgba(72, 163, 222, 0.5);">
+    <h1>Registration Form</h1>
+    <form action="LoginForm.html">
+        <label for="Username">Username : </label>
+        <input type="text" id="Username" name="Username"> <br> <br>
+        <label for="password">Password : </label>
+        <input type="password" id="pass" name="password"> <br>
+        <br>
+        <hr> <br>
+        <input type="radio" name="year" id="year"> 1st year
+        <input type="radio" name="year" id="year"> 2nd year
+        <input type="radio" name="year" id="year"> 3rd year
+        <input type="radio" name="year" id="year"> 4th year <br>
+        <br>
+        <hr> <br>
+        <h2>Select your college :</h2>
+        <select name="College" id="college">
+            <option value="college">College Name</option>
+            <option value="NSRIT">NSRIT</option>
+            <option value="JNTU-GV">JNTU-GV</option>
+            <option value="Vignan">Vignan</option>
+            <option value="RGUKT">RGUKT</option>
+        </select> <br>
+        <br>
+        <hr><br>
+        <textarea name="Why this College?" id="Why?" cols="50" rows="10">Why this College? : </textarea> <br>
+        <br><br>
+        <button onclick="navigate('LoginForm.html')">Register</button>
+    </form>
+</body>
+
+</html>
