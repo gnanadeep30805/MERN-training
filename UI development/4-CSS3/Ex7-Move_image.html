@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Animation</title>
+    <style>
+        .image {
+            margin: 50px;
+            width: 105px;
+            height: 130px;
+            background: url("./media/image.png")no-repeat;
+            position: relative;
+            animation: repeatit 2s linear 1ms infinite alternate;
+        }
+
+        @keyframes repeatit {
+            from {
+                left: 0;
+            }
+
+            to {
+                left: 50%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image">
+    </div>
+</body>
+
+</html>
