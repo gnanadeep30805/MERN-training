@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        /* Login Container */
+        .register {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 45px 40px;
+            border-radius: 8px;
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Heading */
+        .register h3 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        /* Labels */
+        .register label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Input Fields */
+        .register input[type="text"],
+        .register input[type="email"],
+        .register input[type="password"] {
+            width: 100%;
+            padding: 14px 10px;
+            margin-bottom: 24px;
+            border: none;
+            border-bottom: 1.5px solid #d1d1d1;
+            background: transparent;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        /* Input Focus */
+        .register input[type="text"]:focus,
+        .register input[type="email"]:focus,
+        .register input[type="password"]:focus {
+            border-bottom: 1.5px solid #000;
+        }
+
+        /* Placeholder */
+        .register input::placeholder {
+            color: #999;
+        }
+
+        /* Button */
+        .register input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: #111;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        /* Hover */
+        .register input[type="submit"]:hover {
+            background: #333;
+        }
+
+        /* Tablet Responsive */
+        @media (max-width: 768px) {
+
+            .register {
+                padding: 40px 30px;
+            }
+
+            .register h3 {
+                font-size: 28px;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .register {
+                padding: 35px 22px;
+                border-radius: 6px;
+            }
+
+            .register h3 {
+                font-size: 24px;
+                margin-bottom: 28px;
+            }
+
+            .register label {
+                font-size: 11px;
+            }
+
+            .register input[type="text"],
+            .register input[type="email"],
+            .register input[type="password"] {
+                font-size: 14px;
+                padding: 12px 8px;
+            }
+
+            .register input[type="submit"] {
+                padding: 13px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register">
+        <h3> Registration Form</h3>
+        <form action="index.html">
+            <label for="Full name">Full name</label>
+            <input type="text" name="FullName" id="FullName" placeholder="FullName" autofocus> <br><br>
+            <label for="email">E-Mail</label>
+            <input type="email" name="email" id="email" placeholder="Email"> <br><br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password"> <br><br>
+            <input type="Submit" name="Submit">
+
+        </form>
+    </div>
+</body>
+
+</html>
