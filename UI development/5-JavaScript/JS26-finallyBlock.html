@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-25</title>
+    <script>
+        function divide(a, b) {
+            try {
+                console.log("One");
+                if (b == 0) {
+                    throw new Error("Divide by xero is not allowed.. hello")
+                }
+                let result = a / b;
+
+                console.log(result);
+                console.log("End");
+            }
+            catch (error) {
+                console.error("Program has error: " + error);
+            }
+            finally {
+                console.log("end");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h3>JavaScript Programming Exception Handling</h3>
+</body>
+
+</html>
