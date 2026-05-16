@@ -7,32 +7,31 @@
     <title>JS-27</title>
     <script>
         function checkAge(age) {
-            if (age < 18) {
-                throw new Error("You are not eligible for voting");
+            if (age <= 18) {
+                throw new Error("Age should be more than 18");
             }
             else {
                 return "Eligible for voting";
             }
-
-            try {
-                let result = checkAge(2);
-                document.write(result);
-                if (age < 18) {
-                    throw new Error("You are not eligible for voting");
-                }
-                document.write("Eligible for voting");
-            }
-            catch (error) {
-                document.error("Program has error: " + error);
-            }
         }
+
+        try {
+            let result = checkAge(2);
+            document.write(result);
+        }
+        catch (error) {
+            document.write("Program has error: " + error);
+        }
+        finally {
+            document.write("<br>try throw");
+        }
+
 
     </script>
 </head>
 
 <body>
     <h3>JavaScript Programming TryThrow</h3>
-    <button onclick="checkAge(19)">Check Eligibility</button>
 </body>
 
 </html>
