@@ -20,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #f5f5f5;
+            background-image: url(./media/registerBackground.png);
             padding: 20px;
         }
 
@@ -28,8 +28,8 @@
         .register {
             width: 100%;
             max-width: 400px;
-            background: #ffffff;
             padding: 45px 40px;
+            background-color: rgb(255, 255, 255);
             border-radius: 8px;
             border: 1px solid #e6e6e6;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -50,7 +50,7 @@
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: #444;
+            color: #000000;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -82,7 +82,7 @@
 
         /* Placeholder */
         .register input::placeholder {
-            color: #999;
+            color: #3f3a3a;
         }
 
         /* Button */
@@ -91,7 +91,7 @@
             padding: 15px;
             border: none;
             background: #111;
-            color: white;
+            color: rgb(255, 255, 255);
             font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
@@ -174,8 +174,6 @@
 
             let password = document.getElementById("password").value.trim();
 
-            let confirmPassword = document.getElementById("confirmPassword").value.trim();
-
             let address = document.getElementById("address").value.trim();
 
 
@@ -213,14 +211,6 @@
 
             }
 
-            if (password !== confirmPassword) {
-
-                alert("Passwords do not match");
-
-                return;
-
-            }
-
             if (address === "") {
 
                 alert("Please enter your address");
@@ -252,8 +242,6 @@
             <label for="phone">Phone Number</label>
             <input type="tel" name="phone" id="phone" placeholder="Phone Number" pattern="[0-9]{10}" required> <br><br>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password"> <br><br>
-            <label for="Confirm Password">Confirm Password</label>
             <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"> <br><br>
             <label for="address">Address</label>
             <input type="text" name="address" id="address" placeholder="Address"> <br><br>

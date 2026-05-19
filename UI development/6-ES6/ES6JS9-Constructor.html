@@ -1,0 +1,44 @@
+!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES-9</title>
+</head>
+
+<body>
+    <h1>JavaScript Constructor</h1>
+
+    <script>
+        class Person {
+            name;
+            age;
+
+            myDisplay() {
+                console.log("Name: " + this.name);
+                console.log("Age: " + this.age);
+            }
+
+            myData() {
+                console.log("Hello mydata method");
+            }
+        }
+
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+        }
+
+        var myPerson = new Person();
+        myPerson.name = "ravi";
+        myPerson.age = 26;
+        myPerson.myDisplay();
+        myPerson.myData()
+    </script>
+</body>
+
+</html>
