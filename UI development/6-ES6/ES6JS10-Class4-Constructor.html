@@ -12,32 +12,21 @@
     <h1>JavaScript Constructor</h1>
 
     <script>
-        class Person {
-            name;
-            age;
+        class Student {
+            // constructor(name,age){
+            //     this.name=name;
+            //     this.age=age;
+            // }
 
-            myDisplay() {
-                console.log("Name: " + this.name);
-                console.log("Age: " + this.age);
-            }
-
-            myData() {
-                console.log("Hello mydata method");
+            constructor() {
+                console.log("i am default constructor");
             }
         }
-
-        class Person {
-            constructor(name, age) {
-                this.name = name;
-                this.age = age;
-            }
-        }
-
-        var myPerson = new Person();
-        myPerson.name = "ravi";
-        myPerson.age = 26;
-        myPerson.myDisplay();
-        myPerson.myData()
+        var s1 = new Student();
+        s1.name = "ravi";
+        s1.age = 26;
+        console.log(s1.name);
+        console.log(s1.age);
     </script>
 </body>
 
