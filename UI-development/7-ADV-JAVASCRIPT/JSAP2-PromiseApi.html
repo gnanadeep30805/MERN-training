@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Document</title>
+    <script>
+        let mypromise=new Promise(function(resolve,reject){
+            let success=true;
+         if(success){
+            resolve("ALL IS WELL");
+         }
+         else{
+            reject("Promise is rejected");
+         }
+        });
+        mypromise.then(function(data){
+            console.log("Promise is resolved",data);
+        }).catch(function(error){
+            console.log("Promise is rejected",error);
+        });
+    </script>
+</head>
+<body>
+    <h1>Promise API</h1>
+</body>
+</html> 

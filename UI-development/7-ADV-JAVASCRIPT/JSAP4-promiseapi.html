@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>My JavaScript...</title>
+        <script>
+            function delay(ms){
+                return new Promise(function(reslove)
+            {
+                setTimeout(reslove,ms);
+            });
+            }
+            async function runDemo(){
+                await delay(1000);
+                console.log("karthik");
+                await delay(1000);
+                console.log("Sowmya (from await delay)");
+                await delay(1000);
+                console.log("Maaa");
+            }
+         runDemo();
+        </script>
+        <body>
+            <h1>Welcome to My HTML body...</h1>
+        </body>
+    </head>
+</html>

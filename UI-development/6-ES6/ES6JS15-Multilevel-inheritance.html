@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ES6 Programming - Multilevel Inheritance</title>
+</head>
+<body>
+  <h1>JavaScript Classes - Multilevel Inheritance</h1>
+
+  <script>
+    // Base Class: Car
+    class Car {
+      constructor(brand) {
+        this.brand = brand;
+      }
+      displayBrand() {
+        document.write("<br>Car Brand: " + this.brand);
+      }
+    }
+
+    // Derived Class: Model (extends Car)
+    class Model extends Car {
+      constructor(brand, model) {
+        super(brand); // call parent constructor
+        this.model = model;
+      }
+      displayModel() {
+        document.write("<br>Model Name: " + this.model);
+      }
+    }
+    // Further Derived Class: Variant (extends Model)
+    class Variant extends Model {
+      constructor(brand, model, variant) {
+        super(brand, model); // call Model (and Car) constructor
+        this.variant = variant;
+      }
+      displayVariant() {
+        document.write("<br>Variant Type: " + this.variant);
+      }
+    }
+
+    // Create object of Variant (multilevel inheritance in action)
+    var myCar = new Variant("TATA", "Safari", "XZA+");
+
+    // Call methods from all levels
+    myCar.displayBrand();   // From Car
+    myCar.displayModel();   // From Model
+    myCar.displayVariant(); // From Variant
+  </script>
+</body>
+</html>

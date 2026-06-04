@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Car Booking-Promise Api</title>
+        <script>
+           function bookCar(){
+            return new Promise(function(resolve, reject){
+                console.log("Sending car booking request...");
+                setTimeout(function(){
+                    let carAvailable = true;
+                    if(carAvailable){
+                        resolve( "car is booked successfully!");
+                    } else {
+                        reject("Sorry, car is not available.");
+                    }
+                },3000);
+            });
+           }
+              async function startbooking(){
+                console.log("Starting car booking process...");
+                try {
+                    let result = await bookCar();
+                    console.log(result);  
+                    console.log("Enjoy your ride!");
+                } catch (error) {
+                    console.error(error);
+                    console.log("soory for Inconvience.");
+                }
+              }
+              startbooking();
+        </script>
+        <body>
+            <h1>Welcome to My HTML body...</h1>
+        </body>
+    </head>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Polymorphism Example</title>
+</head>
+<body>
+
+<h2>JavaScript Polymorphism Example</h2>
+
+<script>
+    // Parent class
+    class Animal {
+        sound() {
+            return "Some generic sound";
+        }
+    }
+
+    // Child class 1
+    class Dog extends Animal {
+        sound() {
+            return "Woof! Woof!";
+        }
+    }
+
+    // Child class 2
+    class Cat extends Animal {
+        sound() {
+            return "Meow! Meow!";
+        }
+    }
+
+    // Creating objects
+    var animal = new Animal();
+    var dog = new Dog();
+    var cat = new Cat();
+
+    // Storing objects in array
+    var myanimals = [animal, dog, cat];
+
+    // Looping through array (simple for loop)
+    for (var i = 0; i < myanimals.length; i++) {
+        document.write(myanimals[i].sound() + "<br>");
+    }
+</script>
+
+</body>
+</html>

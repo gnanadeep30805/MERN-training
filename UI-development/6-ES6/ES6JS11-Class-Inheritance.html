@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Inheritance</h1>
+    <script>
+     var brand;
+     class car{
+        brand="tata";
+        display(){
+            document.write("<br>my car name is "+this.brand);
+        }
+    }
+    class myclass extends car{
+        mydata(){
+            document.write("<br>my class method: "+this.brand);
+        }
+     }
+        var abc=new myclass();
+        abc.mydata();
+        abc.display();
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>JavaScript Programming</title>
+        <script>
+            // Define the API URL we want to fetch data from
+            const url = 'https://jsonplaceholder.typicode.com/posts';
+
+            // Call fetch() to request data from the given URL
+            fetch(url)
+                // First .then() handles the response object
+                .then(function(resram) {
+                    // Check if the response status is not OK (like 404, 500, etc.)
+                    if (!resram.ok) {
+                        // If not OK, throw an error
+                        throw new Error('Error fetch data : RAM');
+                    }
+                    // If response is OK, convert it to JSON
+                    return resram.json();
+                })
+                // Second .then() handles the JSON data
+                .then(function(data) {
+                    // Log the fetched data into the console
+                    console.log('Data from the API', data);
+                })
+                // .catch() handles any error that occurs in fetch or .then()
+                .catch(function(error) {
+                    // Log the error message in the console
+                    console.error('Hello Error :', error);
+                });
+        </script>
+    </head>
+    <body>
+        <h1>JavaScript..</h1>
+    </body>
+</html>

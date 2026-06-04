@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Bank Program</title>
+
+    <script>
+        // Step 1: Create a class
+        class BankAccount {
+
+            // Step 2: Constructor (used to initialize data)
+            constructor(accountNumber, balance) {
+                this.accountNumber = accountNumber;
+                this.balance = balance;
+            }
+
+            // Step 3: Deposit method
+            deposit(amount) {
+                this.balance = this.balance + amount;
+                console.log("Deposited: " + amount);
+                console.log("Current Balance: " + this.balance);
+            }
+
+            // Step 4: Withdraw method
+            withdraw(amount) {
+                if (this.balance >= amount) {
+                    this.balance = this.balance - amount;
+                    console.log("Withdrawn: " + amount);
+                    console.log("Current Balance: " + this.balance);
+                } else {
+                    console.log("Insufficient balance");
+                }
+            }
+        }
+
+        // Step 5: Create object
+        let myAccount = new BankAccount("123456789", 1000);
+
+        // Step 6: Call methods
+        myAccount.deposit(500);
+        myAccount.withdraw(300);
+    </script>
+</head>
+
+<body>
+    <h1>Simple Bank Program using OOPS</h1>
+    <p>Open Console  to see output</p>
+</body>
+</html>
