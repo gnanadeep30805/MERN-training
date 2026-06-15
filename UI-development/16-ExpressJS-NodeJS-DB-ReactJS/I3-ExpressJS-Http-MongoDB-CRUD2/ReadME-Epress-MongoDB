@@ -1,0 +1,125 @@
+
+express-mongo-app
+│
+├── server.js
+├── models
+│   └── Student.js
+└── package.json
+
+
+Install Required Packages
+
+npm init -y
+npm install express mongoose
+
+node MyServer.js
+
+http://localhost:5000/
+          Express + MongoDB Integration
+
+
+Post : postman   (Body -raw-JSON)
+http://localhost:5000/students
+
+{
+  "name": "Murali",
+  "course": "NodeJS",
+  "age": 25
+}
+
+
+
+Get Students (GET)
+
+http://localhost:5000/students
+
+find id 
+http://localhost:5000/students/6a2b6d821d2ddb24800db04e
+
+Update 
+http://localhost:5000/students/6a2c2fefe27812b2c413ac91
+{
+  "name": "Ramesh Kumar",
+  "course": "MongoDB",
+  "age": 23
+}
+
+
+Part	                Purpose
+Express	                   Create server & routes
+MongoDB	                   Store student data
+Mongoose	               Connect Express to MongoDB
+POST	                   Insert data
+GET	                       Fetch data
+
+
+
+
+
+Listed directory I1-ExpressJS-Http-MongoDB-CRUD
+Listed directory models
+Viewed ReadME-Epress-MongoDB:1-53
+Viewed Student.js:1-9
+Viewed MyServer.js:1-138
+
+Here is the workflow of the folder [`I1-ExpressJS-Http-MongoDB-CRUD`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD).
+
+---
+
+### 1. Overview
+This is a backend application built using **Express.js** and **Mongoose (MongoDB)** to implement a complete RESTful API for **CRUD** (Create, Read, Update, Delete) operations on student records.
+
+---
+
+### 2. Folder Structure
+The folder is structured as follows (as documented in [`ReadME-Epress-MongoDB`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/ReadME-Epress-MongoDB)):
+* **[`MyServer.js`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js)**: The main application file that initializes the Express server, connects to MongoDB, and registers HTTP routes.
+* **[`models/Student.js`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/models/Student.js)**: Defines the MongoDB schema and exports the compiled Mongoose model for Student data.
+
+---
+
+### 3. Detailed Step-by-Step Workflow
+
+#### Step A: Defining the Data Structure
+In **[`models/Student.js`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/models/Student.js)**:
+1. Mongoose is imported to interface with MongoDB.
+2. A new [`StudentSchema`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/models/Student.js#L3-L7) schema is defined with three fields:
+   * `name` (String)
+   * `course` (String)
+   * `age` (Number)
+3. The schema is compiled into a model named `Student` and exported via [`module.exports`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/models/Student.js#L9).
+
+#### Step B: Server Start and Database Connection
+In **[`MyServer.js`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js)**:
+1. **Modules Requirement**: Imports `express`, `mongoose`, and the `Student` model.
+2. **Express Initialisation**: Creates the Express application object (`app`).
+3. **JSON Parsing**: Registers [`express.json()`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L10) middleware to parse incoming request payloads as JSON.
+4. **Database Connection**: Establishes a local MongoDB connection using Mongoose to `mongodb://127.0.0.1:27017/expstudentdb`. It logs the connection status on connection success (`connected`) or failure (`error`).
+5. **Port Binding**: Listens on port `5000` via [`app.listen()`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L136-L138).
+
+#### Step C: API Endpoints (CRUD)
+The server exposes the following routes for client interaction:
+
+| Method | Endpoint | Description | Mongoose Query Used | File Location |
+| :--- | :--- | :--- | :--- | :--- |
+| **GET** | `/` | Home test route | Returns confirmation string | [MyServer.js#L29-L31](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L29-L31) |
+| **POST** | `/students` | **Create**: Adds a new student record | `student.save()` | [MyServer.js#L43-L58](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L43-L58) |
+| **GET** | `/students` | **Read All**: Fetches all students | `Student.find()` | [MyServer.js#L63-L72](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L63-L72) |
+| **GET** | `/students/:id` | **Read One**: Fetches a student by ID | `Student.findById(id)` | [MyServer.js#L78-L87](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L78-L87) |
+| **PUT** | `/students/:id` | **Update**: Updates an existing student by ID | `Student.findByIdAndUpdate(id, data, { new: true })` | [MyServer.js#L100-L117](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L100-L117) |
+| **DELETE** | `/students/:id` | **Delete**: Deletes a student by ID | `Student.findByIdAndDelete(id)` | [MyServer.js#L122-L131](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/MyServer.js#L122-L131) |
+
+---
+
+### 4. How to Run & Test
+
+1. **Install dependencies**:
+   ```powershell
+   npm install express mongoose
+   ```
+2. **Start the database**: Ensure MongoDB is running locally on port `27017`.
+3. **Start the server**:
+   ```powershell
+   node MyServer.js
+   ```
+4. **Test the endpoints**: You can use Postman, curl, or any REST client using the JSON request samples documented in [`ReadME-Epress-MongoDB`](file:///d:/web%20dev/Training/MERN-training/UI-development/16-ExpressJS-NodeJS-DB-ReactJS/I1-ExpressJS-Http-MongoDB-CRUD/ReadME-Epress-MongoDB).

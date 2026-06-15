@@ -1,0 +1,17 @@
+import React, { Component } from 'react';
+
+class HeaderComponent extends Component {
+    render() {
+        return (
+            <header>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <a href="/" className="navbar-brand">
+                        Employee Management ReactApp
+                    </a>
+                </nav>
+            </header>
+        );
+    }
+}
+
+export default HeaderComponent;

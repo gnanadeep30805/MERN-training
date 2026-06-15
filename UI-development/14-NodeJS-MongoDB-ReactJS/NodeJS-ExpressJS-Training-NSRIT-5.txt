@@ -1,0 +1,489 @@
+
+12-6-2026
+
+Integrations with NodeJS and MongoDB and MySQL
+----------------------------------------------
+I2-Node-MongoDB-HTTP (folder name)
+
+mymodels (folder)
+Student.js
+-----------
+var mongoose = require("mongoose");
+var studentSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    course: String
+});
+module.exports = mongoose.model("Student", studentSchema);
+
+
+MyServer.js
+
+var http = require("http");
+var mongoose = require("mongoose");
+var Student = require("./mymodels/Student");
+
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/myhttpdb")
+    .then(function () {
+        console.log("MongoDB Connected");
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+
+// HTTP Server
+var server = http.createServer(function (req, res) {
+   //http://localhost:9000/
+    if (req.method === "GET" && req.url === "/") {
+   res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Welcome to Student API : NSRIT");
+    }
+  //http://localhost:9000/students
+    else if (req.method === "GET" && req.url === "/students") {
+        Student.find().then(function (students) {
+      res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(students));
+        });
+    }
+  //http://localhost:9000/students
+    else if (req.method === "POST" && req.url === "/students") {
+        var body = "";
+
+        req.on("data", function (chunk) {
+            body += chunk;
+        });
+
+        req.on("end", function () {
+            var data = JSON.parse(body);
+
+            var student = new Student(data);
+            student.save().then(function () {
+                res.writeHead(201, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({
+                    message: "Student Saved",
+                    student: student
+                }));
+            });
+        });
+    }
+
+    else {
+        res.writeHead(404);
+        res.end("Route Not Found");
+    }
+});
+
+server.listen(9000, function () {
+    console.log("Server running at http://localhost:9000");
+});
+
+
+Install Required Packages
+
+  npm init -y
+npm install mongoose  
+
+
+
+>node MyServer.js
+
+MongoDB Connected
+
+Goto Postman :
+
+Server running at http://localhost:9000
+http://localhost:9000/
+GET http://localhost:9000/students
+
+POST Student
+  http://localhost:9000/students
+
+    {
+  "name": "Shyam",
+  "age": 22,
+  "course": "NodeJS"
+}
+
+
+I3-Node-HttpServer-Mongo-CRUD
+-----------------------------
+
+mymodels
+Student.js
+
+var mongoose = require("mongoose");
+var studentSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    course: String
+});
+
+module.exports = mongoose.model("Student", studentSchema);
+
+-----------------------
+MyServer.js
+//CRUD SERVER (HTTP + MongoDB)
+
+
+var http = require("http");
+var mongoose = require("mongoose");
+var url = require("url");
+var Student = require("./mymodels/Student");
+
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/myhttpdb3")
+.then(function () {
+    console.log("MongoDB Connected");
+})
+.catch(function (err) {
+    console.log(err);
+});
+
+// Create HTTP Server
+var server = http.createServer(function (req, res) {
+
+    var parsedUrl = url.parse(req.url, true);
+    var id = parsedUrl.query.id;
+         http://localhost:9000
+    // ===== ROOT =====
+ if (req.method === "GET" && parsedUrl.pathname === "/") {
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Welcome to Student API : NSRIT");
+    }
+    //http://localhost:9000/students
+    //  READ (GET ALL)  
+    else if (req.method === "GET" && parsedUrl.pathname === "/students") {
+        Student.find().then(function (students) {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(students));
+        });
+    }
+
+    // CREATE (POST) 
+    else if (req.method === "POST" && parsedUrl.pathname === "/students") {
+        var body = "";
+
+        req.on("data", function (chunk) {
+            body += chunk;
+        });
+
+        req.on("end", function () {
+            var data = JSON.parse(body);
+            var student = new Student(data);
+
+            student.save().then(function () {
+                res.writeHead(201, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({
+                    message: "Student Saved",
+                    student: student
+                }));
+            });
+        });
+    }
+   
+   //http://localhost:9000/students/6a2aa1a3129b5636d21afdd1
+   //  UPDATE STUDENT 
+else if (req.method === "PUT" && req.url.startsWith("/students/")) {
+
+    var id = req.url.split("/")[2]; // get ID from URL
+    var body = "";
+
+    req.on("data", function (chunk) {
+        body += chunk;
+    });
+
+    req.on("end", function () {
+        var data = JSON.parse(body);
+        Student.findByIdAndUpdate(
+            id,
+            data,
+            { new: true }
+        )
+        .then(function (updatedStudent) {
+ res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message: "Student Updated",
+                student: updatedStudent
+            }));
+        })
+        .catch(function (err) {
+            res.writeHead(500);
+            res.end(JSON.stringify(err));
+        });
+    });
+}
+    // DELETE 
+//http://localhost:9000/students?id=6a2aa1b0129b5636d21afdd2
+    else if (req.method === "DELETE" && parsedUrl.pathname === "/students") {
+        Student.findByIdAndDelete(id).then(function () {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message: "Student Deleted"
+            }));
+        });
+    }
+
+    // ===== INVALID ROUTE =====
+    else {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end("Route Not Found");
+    }
+});
+
+// Start Server
+server.listen(9000, function () {
+    console.log("Server running at http://localhost:9000");
+});
+
+
+
+I4-Node-HttpServer-MySQL-CRUD
+
+db.js
+-----
+var mysql = require("mysql2"); 
+var db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "node_mysql_db"
+});
+
+db.connect(function (err) {
+    if (err) {
+ console.log("DB Connection Error:", err.message);
+    } else {
+        console.log("MySQL Connected");
+    }
+});
+
+module.exports = db;
+
+
+MyServer.js
+----------
+ var http = require("http");
+var db = require("./db");
+
+var server = http.createServer(function (req, res) {
+
+    /* ROOT */
+    if (req.method === "GET" && req.url === "/") {
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Welcome to NodeJS + MySQL API");
+    }
+
+    /* GET ALL STUDENTS */
+    else if (req.method === "GET" && req.url === "/students") {
+        db.query("SELECT * FROM students", function (err, result) {
+            if (err) {
+                res.writeHead(500);
+                res.end("DB Error");
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(result));
+            }
+        });
+    }
+
+    /* POST STUDENT */
+    else if (req.method === "POST" && req.url === "/students")    {
+        var body = "";
+
+        req.on("data", function (chunk) {
+            body += chunk;
+        });
+
+        req.on("end", function () {
+      var data = JSON.parse(body);
+var sql = "INSERT INTO students (name, age, course) VALUES (?, ?, ?)";
+
+ db.query(sql, [data.name, data.age, data.course], 
+         function (err) {
+                if (err) {
+                    res.writeHead(500);
+                    res.end("Insert Failed");
+                } else {
+                    res.writeHead(201);
+                    res.end("Student Inserted");
+                }
+            });
+        });
+    }
+
+    /* PUT STUDENT */
+    else if (req.method === "PUT" && req.url.startsWith("/students/")) {
+        var id = req.url.split("/")[2];
+        var body = "";
+
+        req.on("data", function (chunk) {
+            body += chunk;
+        });
+
+        req.on("end", function () {
+            var data = JSON.parse(body);
+    var sql = "UPDATE students SET name=?, age=?, course=? WHERE id=?";
+
+   db.query(sql, [data.name, data.age, data.course, id], function (err) {
+                if (err) {
+                    res.writeHead(500);
+                    res.end("Update Failed");
+                } else {
+                    res.end("Student Updated");
+                }
+            });
+        });
+    }
+
+    /* DELETE STUDENT */
+    else if (req.method === "DELETE" && req.url.startsWith("/students/")) {
+        var id = req.url.split("/")[2];
+        var sql = "DELETE FROM students WHERE id=?";
+
+        db.query(sql, [id], function (err) {
+            if (err) {
+                res.writeHead(500);
+                res.end("Delete Failed");
+            } else {
+                res.end("Student Deleted");
+            }
+        });
+    }
+
+    /* INVALID ROUTE */
+    else {
+        res.writeHead(404);
+        res.end("Route Not Found");
+    }
+});
+
+server.listen(8000, function () {
+    console.log("Server running at http://localhost:8000");
+});
+
+
+
+Express.js (usually called Express) is a fast, minimalist 
+web application framework for Node.js.
+It helps developers build web servers, APIs, and 
+web applications more easily than using Node.js
+
+What Express.js Does
+
+1. Create web servers
+2. Handle HTTP requests and responses
+3. Define API endpoints (routes)
+4. Serve static files (HTML, CSS, images)
+5. Process form data and JSON
+
+What is Static Pages ?
+Delivers fixed files exactly as stored on the server.
+No database connection.
+HTML, CSS, client-side JavaScript.
+
+Dynamic Website
+Generates code on the fly per user request.
+Frequently connects to a database.
+Personalized content based on user action or login.
+JAVA, Node.js, Python, Ruby, SQL.
+
+15-ExpressJS (Folder)
+--------------------
+EJS1-Express.js
+var express = require("express");
+var app = express();
+
+// var ip="127.0.0.1"
+var port = 8005;
+
+app.get("/",(req,res)=>{
+    res.send("Hello World form ExpressJS")
+});
+
+
+app.listen(port, function () {
+    console.log('Server running on port 8005');
+});
+
+ npm install express
+ node EJS1-Express.js
+goto browser 
+ http://localhost:8005/
+
+
+EJS2-ExpressRouting.js
+var express = require("express");
+var app = express();
+var port = 8005;
+app.get("/", function (req, res) {
+    res.send("Hello World from ExpressJS");
+});
+app.get("/about", function (req, res) {
+    res.send("Display from About Page:");
+});
+app.get("/contact", function (req, res) {
+    res.send("Display from Contact Page");
+});
+app.listen(port, function () {
+    console.log("Server running on port 8005");
+});
+npm install express
+node EJS2-ExpressRouting.js
+// http://localhost:8005/
+
+// http://localhost:8005/about
+
+//http://localhost:8005/contact
+
+
+EJS3-Express-Html.js
+var express = require('express');
+
+var app = express();
+// Defining route
+app.get('/', function (req, res) {
+    res.setHeader('Content-Type', 'text/html');
+    res.write('<html>');
+    res.write('<head><title>ExpressJS Framework</title></head>');
+ res.write('<body><h2>Hello from Express.js server!!</h2></body>');
+    res.write('</html>');
+    res.end();
+});
+
+// Server setup
+app.listen(8000, function () {
+    console.log('Server listening on port 8000');
+});
+
+
+//   http://localhost:8000/
+
+EJS4-StaticWebpage.js
+// create public folder and create index.html (it is syntax)
+var express = require('express');
+
+// Creating express app
+var app = express();
+
+// Middleware to serve static files
+app.use(express.static('public'));
+
+// Server setup
+app.listen(4000, function () {
+    console.log('Server running on port 4000');
+});
+
+public(folder)
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static Page</title>
+</head>
+<body>
+    <h1>Welcome to Express Static Page</h1>
+    <p>This page is served using Express.js</p>
+</body>
+</html>
+
